@@ -1,0 +1,9 @@
+{
+  "name": "squirrelnuts-monorepo",
+  "version": "1.0.0",
+  "description": "Root package.json to help hosting platforms deploy the app",
+  "scripts": {
+    "postinstall": "cd User_backend && npm install",
+    "start": "node User_backend/server.js"
+  }
+}
