@@ -1,9 +1,10 @@
 /* Squirrel Nuts — live frontend, talks to the Express/MongoDB backend at /api */
 const API_BASE = window.API_BASE || (() => {
-  const host = window.location.hostname || '127.0.0.1';
-  const port = window.location.port || '5000';
-  const protocol = window.location.protocol && window.location.protocol.startsWith('http') ? window.location.protocol : 'http:';
-  return `${protocol}//${host}${port ? `:${port}` : ''}/api`;
+  const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+  if (isLocal) {
+    return `http://${window.location.hostname}:5000/api`;
+  }
+  return '/api';
 })();
 
 function resolveImg(url) {
