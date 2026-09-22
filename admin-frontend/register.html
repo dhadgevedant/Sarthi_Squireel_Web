@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Register | Squirrel Nuts</title>
+<link rel="icon" href="https://squirrelnuts.in/wp-content/uploads/2024/07/cropped-Black-and-Yellow-Grunge-Financial-Logo-270x270.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="auth-page">
+  <div class="auth-container">
+    <div class="auth-header">
+      <a href="../index.html" class="logo">Squirrel<span>Nuts</span></a>
+      <p class="auth-subtitle">Admin Registration</p>
+    </div>
+    
+    <form id="registerForm" class="auth-form">
+      <h2>Create Admin Account</h2>
+      <p style="color:#666; margin-bottom:25px; font-size:14px;">Register a new admin user</p>
+      
+      <div class="form-group">
+        <label>Full Name</label>
+        <input type="text" name="name" placeholder="Admin Name" required>
+      </div>
+      
+      <div class="form-group">
+        <label>Email Address</label>
+        <input type="email" name="email" placeholder="admin@squirrelnuts.in" required>
+      </div>
+      
+      <div class="form-group">
+        <label>Phone Number</label>
+        <input type="tel" name="phone" placeholder="+91 9876543210">
+      </div>
+      
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" name="password" placeholder="Minimum 6 characters" required minlength="6">
+      </div>
+      
+      <button type="submit" class="btn btn-block">Create Account</button>
+      
+      <p style="text-align:center; margin-top:20px; font-size:13px; color:#666;">
+        Already have an account? <a href="login.html" style="color:var(--orange); font-weight:600;">Sign In</a>
+      </p>
+    </form>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

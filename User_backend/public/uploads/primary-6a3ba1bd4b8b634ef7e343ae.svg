@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="600" viewBox="0 0 600 600">
+  <rect width="600" height="600" fill="#8b5cf6" rx="16"/>
+  <circle cx="300" cy="180" r="100" fill="#8b5cf633" opacity="0.6"/>
+  <text x="50%" y="280" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" fill="#ffffff" opacity="0.9">SPREADS</text>
+  <text x="50%" y="160" text-anchor="middle" font-family="Arial, sans-serif" font-size="32" font-weight="bold" fill="#ffffff">Chocolate</text>
+    <text x="50%" y="210" text-anchor="middle" font-family="Arial, sans-serif" font-size="32" font-weight="bold" fill="#ffffff">Almond</text>
+    <text x="50%" y="260" text-anchor="middle" font-family="Arial, sans-serif" font-size="32" font-weight="bold" fill="#ffffff">Spread</text>
+</svg>

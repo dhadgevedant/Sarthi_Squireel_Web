@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard | Squirrel Nuts</title>
+  <link rel="icon" href="https://squirrelnuts.in/wp-content/uploads/2024/07/cropped-Black-and-Yellow-Grunge-Financial-Logo-270x270.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="admin-layout">
+    <aside class="admin-sidebar">
+      <div class="admin-logo">
+        <div class="logo" style="color:#fff; font-weight:800;">Squirrel<span> Nuts Admin</span></div>
+        <div class="admin-role-badge"></div>
+      </div>
+      <nav class="admin-nav">
+        <a href="dashboard.html" class="admin-nav-link active">
+          <span class="nav-icon">📊</span>
+          <span>Dashboard</span>
+        </a>
+        <a href="orders.html" class="admin-nav-link">
+          <span class="nav-icon"><img src="icons/total_orders-removebg-preview.png" alt="Orders"></span>
+          <span>Orders</span>
+        </a>
+        <a href="products.html" class="admin-nav-link">
+          <span class="nav-icon"><img src="icons/total_products-removebg-preview.png" alt="Products"></span>
+          <span>Products</span>
+        </a>
+        <a href="customers.html" class="admin-nav-link">
+          <span class="nav-icon"><img src="icons/customers-removebg-preview.png" alt="Customers"></span>
+          <span>Customers</span>
+        </a>
+        <a href="contacts.html" class="admin-nav-link">
+          <span class="nav-icon"><img src="icons/unresolved_messages-removebg-preview.png" alt="Messages"></span>
+          <span>Messages</span>
+        </a>
+        <a href="subscribers.html" class="admin-nav-link">
+          <span class="nav-icon"><img src="icons/subscribers-removebg-preview.png" alt="Subscribers"></span>
+          <span>Subscribers</span>
+        </a>
+        <a href="settings.html" class="admin-nav-link">
+          <span class="nav-icon">⚙️</span>
+          <span>Settings</span>
+        </a>
+      </nav>
+      <div class="admin-sidebar-footer">
+        <button class="btn-logout" onclick="adminLogout()">Logout</button>
+        <a href="../User_frontend/index.html" class="btn-back-store" style="margin-top:10px;">← Back to Store</a>
+      </div>
+    </aside>
+
+    <main class="admin-main">
+    <header class="admin-topbar">
+      <button class="hamburger" id="adminHamburger">☰</button>
+      <h2 id="pageTitle">Dashboard</h2>
+      <div class="admin-user-chip" id="adminUserChip" style="cursor:pointer;">
+        <span class="admin-avatar"><img src="icons/user_profile.png" alt="Admin" style="width:100%;height:100%;border-radius:50%;object-fit:cover;"></span>
+        <span id="adminUserName">Admin</span>
+      </div>
+    </header>
+
+      <section class="admin-page active">
+      <div class="stats-grid">
+        <div class="stat-card" id="statCardRevenue">
+          <div class="stat-icon"><img src="icons/total_revenue_icon-removebg-preview.png" alt="Total Revenue"></div>
+          <div class="stat-info">
+            <h3>Total Revenue</h3>
+            <p class="stat-value" id="statRevenue">₹0</p>
+          </div>
+        </div>
+        <div class="stat-card" id="statCardOrders">
+          <div class="stat-icon"><img src="icons/total_orders-removebg-preview.png" alt="Total Orders"></div>
+          <div class="stat-info">
+            <h3>Total Orders</h3>
+            <p class="stat-value" id="statOrders">0</p>
+          </div>
+        </div>
+        <div class="stat-card" id="statCardProducts">
+          <div class="stat-icon"><img src="icons/total_products-removebg-preview.png" alt="Total Products"></div>
+          <div class="stat-info">
+            <h3>Total Products</h3>
+            <p class="stat-value" id="statProducts">0</p>
+          </div>
+        </div>
+        <div class="stat-card" id="statCardCustomers">
+          <div class="stat-icon"><img src="icons/customers-removebg-preview.png" alt="Customers"></div>
+          <div class="stat-info">
+            <h3>Customers</h3>
+            <p class="stat-value" id="statCustomers">0</p>
+          </div>
+        </div>
+        <div class="stat-card" id="statCardPending">
+          <div class="stat-icon"><img src="icons/pending_orders-removebg-preview.png" alt="Pending Orders"></div>
+          <div class="stat-info">
+            <h3>Pending Orders</h3>
+            <p class="stat-value" id="statPending">0</p>
+          </div>
+        </div>
+        <div class="stat-card" id="statCardUnresolved">
+          <div class="stat-icon"><img src="icons/unresolved_messages-removebg-preview.png" alt="Unresolved Messages"></div>
+          <div class="stat-info">
+            <h3>Unresolved Messages</h3>
+            <p class="stat-value" id="statUnresolved">0</p>
+          </div>
+        </div>
+        <div class="stat-card" id="statCardSubscribers">
+          <div class="stat-icon"><img src="icons/subscribers-removebg-preview.png" alt="Subscribers"></div>
+          <div class="stat-info">
+            <h3>Subscribers</h3>
+            <p class="stat-value" id="statSubscribers">0</p>
+          </div>
+        </div>
+      </div>
+
+        <div class="admin-section" style="margin-top:30px;">
+          <h3>Recent Orders</h3>
+          <div class="table-wrap">
+            <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Order ID</th>
+                <th>Name</th>
+                <th>Phone</th>
+                <th>Qty</th>
+                <th>Amount</th>
+                <th>Status</th>
+                <th>Date</th>
+              </tr>
+            </thead>
+            <tbody id="recentOrdersBody">
+              <tr><td colspan="7" style="text-align:center; padding:30px; color:#999;">Loading...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

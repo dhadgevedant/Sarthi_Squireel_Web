@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Settings | Squirrel Nuts Admin</title>
+<link rel="icon" href="https://squirrelnuts.in/wp-content/uploads/2024/07/cropped-Black-and-Yellow-Grunge-Financial-Logo-270x270.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="admin-layout">
+  <aside class="admin-sidebar">
+    <div class="admin-logo">
+      <div class="logo" style="color:#fff;">Squirrel<span>Nuts</span></div>
+      <div class="admin-role-badge"></div>
+    </div>
+    <nav class="admin-nav">
+      <a href="dashboard.html" class="admin-nav-link"><span class="nav-icon">📊</span><span>Dashboard</span></a>
+      <a href="orders.html" class="admin-nav-link"><span class="nav-icon"><img src="icons/total_orders-removebg-preview.png" alt="Orders"></span><span>Orders</span></a>
+      <a href="products.html" class="admin-nav-link"><span class="nav-icon"><img src="icons/total_products-removebg-preview.png" alt="Products"></span><span>Products</span></a>
+      <a href="customers.html" class="admin-nav-link"><span class="nav-icon"><img src="icons/customers-removebg-preview.png" alt="Customers"></span><span>Customers</span></a>
+      <a href="contacts.html" class="admin-nav-link"><span class="nav-icon"><img src="icons/unresolved_messages-removebg-preview.png" alt="Messages"></span><span>Messages</span></a>
+      <a href="subscribers.html" class="admin-nav-link"><span class="nav-icon"><img src="icons/subscribers-removebg-preview.png" alt="Subscribers"></span><span>Subscribers</span></a>
+      <a href="settings.html" class="admin-nav-link active"><span class="nav-icon">⚙️</span><span>Settings</span></a>
+    </nav>
+    <div class="admin-sidebar-footer">
+      <button class="btn-logout" onclick="adminLogout()">Logout</button>
+      <a href="../User_frontend/index.html" class="btn-back-store" style="margin-top:10px;">← Back to Store</a>
+    </div>
+  </aside>
+  
+  <main class="admin-main">
+    <header class="admin-topbar">
+      <button class="hamburger" id="adminHamburger">☰</button>
+      <h2 id="pageTitle">Settings</h2>
+      <div class="admin-user-chip">
+        <span class="admin-avatar">A</span>
+        <span id="adminUserName">Admin</span>
+      </div>
+    </header>
+    
+    <section class="admin-page active">
+      <div class="admin-section" style="margin-bottom:30px;">
+        <h3>Profile</h3>
+        <form id="profileForm" onsubmit="updateProfile(event)" style="max-width:500px;">
+          <div class="form-group">
+            <label>Full Name</label>
+            <input type="text" id="settingsName" required>
+          </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" id="settingsEmail" required>
+          </div>
+          <div class="form-group">
+            <label>Phone</label>
+            <input type="tel" id="settingsPhone">
+          </div>
+          <button type="submit" class="btn">Update Profile</button>
+        </form>
+      </div>
+      
+      <div class="admin-section" style="margin-bottom:30px;">
+        <h3>Change Password</h3>
+        <form id="passwordForm" onsubmit="changePassword(event)" style="max-width:500px;">
+          <div class="form-group">
+            <label>Current Password</label>
+            <input type="password" id="currentPassword" required>
+          </div>
+          <div class="form-group">
+            <label>New Password</label>
+            <input type="password" id="newPassword" required minlength="6">
+          </div>
+          <button type="submit" class="btn">Change Password</button>
+        </form>
+      </div>
+      
+      <div class="admin-section" style="margin-bottom:30px;">
+        <h3>🎉 Store Announcement &amp; Festival Offer</h3>
+        <p class="section-note">This controls the announcement bar and the festival/seasonal offer banner shown on the customer home page.</p>
+        <form id="siteSettingsForm" onsubmit="saveSiteSettings(event)" style="max-width:600px;">
+          <div class="form-group">
+            <label>Announcement bar text</label>
+            <input type="text" id="settingsAnnouncement" placeholder="🚚 Pan India delivery · Freshly baked in small batches">
+          </div>
+
+          <div class="form-group">
+            <label style="display:flex; align-items:center; gap:10px;">
+              <input type="checkbox" id="settingsOfferEnabled" onchange="toggleOfferPreview()"> Show festival offer banner on the home page
+            </label>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group" style="flex:1;">
+              <label>Offer title</label>
+              <input type="text" id="settingsOfferTitle" placeholder="🎉 Festival Special">
+            </div>
+            <div class="form-group" style="flex:1;">
+              <label>Discount %</label>
+              <input type="number" id="settingsOfferPercent" min="0" max="100" oninput="toggleOfferPreview()" placeholder="10">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Offer message</label>
+            <textarea id="settingsOfferText" rows="2" oninput="toggleOfferPreview()" placeholder="🎊 Diwali is coming! Enjoy a special discount on every product. ✨"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label>Offer valid till (optional)</label>
+            <input type="date" id="settingsOfferValidTill">
+          </div>
+
+          <div id="offerPreview" class="offer-preview disabled">🔕 Offer banner is currently hidden from customers</div>
+
+          <div class="form-row" style="margin-top:20px;">
+            <div class="form-group" style="flex:1;">
+              <label>Free shipping above (₹)</label>
+              <input type="number" id="settingsFreeShipping" min="0">
+            </div>
+            <div class="form-group" style="flex:1; display:flex; align-items:flex-end;">
+              <label style="display:flex; align-items:center; gap:10px; margin-bottom:13px;">
+                <input type="checkbox" id="settingsCodEnabled"> Cash on Delivery enabled
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Support phone number (shown in announcement bar & footer)</label>
+            <input type="tel" id="settingsSupportPhone" placeholder="+91 70833 73681">
+          </div>
+
+          <div class="form-group">
+            <label>Support email (shown in footer & contact page)</label>
+            <input type="email" id="settingsSupportEmail" placeholder="connect@squirrelnuts.in">
+          </div>
+
+          <button type="submit" class="btn">Save Store Settings</button>
+        </form>
+      </div>
+
+      <div class="admin-section" style="margin-bottom:30px;">
+        <h3>Manage Admins</h3>
+        <div id="adminsList" style="margin-bottom:20px;"></div>
+        <button class="btn" onclick="showAddAdminModal()">+ Add New Admin</button>
+      </div>
+    </section>
+  </main>
+</div>
+
+<!-- Add Admin Modal -->
+<div id="addAdminModal" class="modal">
+  <div class="modal-content" style="max-width:450px;">
+    <button class="modal-close" onclick="closeAddAdminModal()">✕</button>
+    <h2>Add New Admin</h2>
+    <form id="addAdminForm" onsubmit="addAdmin(event)">
+      <div class="form-group">
+        <label>Full Name</label>
+        <input type="text" id="newAdminName" required>
+      </div>
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" id="newAdminEmail" required>
+      </div>
+      <div class="form-group">
+        <label>Phone</label>
+        <input type="tel" id="newAdminPhone">
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" id="newAdminPassword" required minlength="6">
+      </div>
+      <button type="submit" class="btn btn-block">Create Admin</button>
+    </form>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

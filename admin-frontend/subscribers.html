@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Subscribers | Squirrel Nuts Admin</title>
+  <link rel="icon" href="https://squirrelnuts.in/wp-content/uploads/2024/07/cropped-Black-and-Yellow-Grunge-Financial-Logo-270x270.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="admin-layout">
+    <aside class="admin-sidebar">
+      <div class="admin-logo">
+        <div class="logo" style="color:#fff; font-weight:800;">Squirrel<span> Nuts Admin</span></div>
+        <div class="admin-role-badge"></div>
+      </div>
+      <nav class="admin-nav">
+        <a href="dashboard.html" class="admin-nav-link"><span class="nav-icon">📊</span><span>Dashboard</span></a>
+        <a href="orders.html" class="admin-nav-link"><span class="nav-icon"><img src="icons/total_orders-removebg-preview.png" alt="Orders"></span><span>Orders</span></a>
+        <a href="products.html" class="admin-nav-link"><span class="nav-icon"><img src="icons/total_products-removebg-preview.png" alt="Products"></span><span>Products</span></a>
+        <a href="customers.html" class="admin-nav-link"><span class="nav-icon"><img src="icons/customers-removebg-preview.png" alt="Customers"></span><span>Customers</span></a>
+        <a href="contacts.html" class="admin-nav-link"><span class="nav-icon"><img src="icons/unresolved_messages-removebg-preview.png" alt="Messages"></span><span>Messages</span></a>
+        <a href="subscribers.html" class="admin-nav-link active"><span class="nav-icon"><img src="icons/subscribers-removebg-preview.png" alt="Subscribers"></span><span>Subscribers</span></a>
+        <a href="settings.html" class="admin-nav-link"><span class="nav-icon">⚙️</span><span>Settings</span></a>
+      </nav>
+      <div class="admin-sidebar-footer">
+        <button class="btn-logout" onclick="adminLogout()">Logout</button>
+        <a href="../User_frontend/index.html" class="btn-back-store" style="margin-top:10px;">← Back to Store</a>
+      </div>
+    </aside>
+    
+    <main class="admin-main">
+      <header class="admin-topbar">
+        <button class="hamburger" id="adminHamburger">☰</button>
+        <h2 id="pageTitle">Subscribers</h2>
+        <div class="admin-user-chip" id="adminUserChip" style="cursor:pointer;">
+          <span class="admin-avatar">A</span>
+          <span id="adminUserName">Admin</span>
+        </div>
+      </header>
+      
+      <section class="admin-page active">
+        <div class="admin-section">
+          <h3>All Subscribers</h3>
+          <div class="table-wrap">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Subscribed Date</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="allSubscribersBody">
+                <tr><td colspan="4" style="text-align:center; padding:30px; color:#999;">Loading...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+  <script>
+    async function loadAllSubscribers() {
+      try {
+        const data = await apiCall('/admin/subscribers');
+        const subscribers = data.subscribers || [];
+        const tbody = document.getElementById('allSubscribersBody');
+        if (subscribers.length === 0) {
+          tbody.innerHTML = '<tr><td colspan="4" style="text-align:center; padding:30px; color:#999;">No subscribers found</td></tr>';
+          return;
+        }
+        tbody.innerHTML = subscribers.map(s => `
+          <tr>
+            <td>${s.name || 'N/A'}</td>
+            <td>${s.email}</td>
+            <td>${new Date(s.createdAt).toLocaleDateString('en-IN')}</td>
+            <td>
+              <button class="btn btn-small" style="background:#f8d7da; color:#721c24; border:none;" onclick="deleteSubscriber('${s._id}')">Delete</button>
+            </td>
+          </tr>
+        `).join('');
+      } catch (err) {
+        console.error('Subscribers error:', err);
+      }
+    }
+
+    async function deleteSubscriber(id) {
+      if (!confirm('Delete this subscriber?')) return;
+      try {
+        await apiCall(`/admin/subscribers/${id}`, { method: 'DELETE' });
+        loadAllSubscribers();
+        showToast('Subscriber deleted');
+      } catch (err) {
+        alert('Failed: ' + err.message);
+      }
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', loadAllSubscribers);
+    } else {
+      loadAllSubscribers();
+    }
+  </script>
+</body>
+</html>

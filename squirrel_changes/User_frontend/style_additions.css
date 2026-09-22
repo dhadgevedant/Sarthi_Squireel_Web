@@ -1,0 +1,69 @@
+/* ─────────────────────────────────────────────────────────────────────────────
+ * ADDITIONS for User_frontend/assets/style.css
+ * Append these rules (or merge into existing matching selectors)
+ * ───────────────────────────────────────────────────────────────────────────── */
+
+/* ── Announcement bar truck icon (§3) ──────────────────────────────────────── */
+.truck-ico {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  vertical-align: middle;
+  margin-right: 4px;
+  color: inherit;          /* inherits the announce bar text color */
+  flex-shrink: 0;
+}
+
+/* ── Offer / festival banner icon (§2) ─────────────────────────────────────── */
+.offer-icon-img {
+  height: 28px;            /* bumped from 18px so it reads clearly */
+  width: auto;
+  vertical-align: middle;
+  margin: 0 6px;
+  object-fit: contain;
+}
+
+.offer-emoji {
+  font-size: 1.15em;
+  line-height: 1;
+  vertical-align: middle;
+  margin: 0 4px;
+}
+
+/* ── Category tile grid (§5.7 — dynamic tiles) ─────────────────────────────── */
+#categoryTilesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 16px;
+}
+
+.category-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.category-tile:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+}
+
+.category-tile img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+}
+
+.tile-label {
+  font-family: 'Baloo 2', cursive;
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-top: 8px;
+  text-align: center;
+  padding: 0 4px 8px;
+}

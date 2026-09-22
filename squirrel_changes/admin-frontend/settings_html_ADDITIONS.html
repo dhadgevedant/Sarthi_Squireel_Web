@@ -1,0 +1,129 @@
+<!--
+  ADDITIONS for admin-frontend/settings.html
+  ============================================
+  Insert the two image-upload sub-sections and the Category management panel.
+  Mirror the existing category-tile upload markup pattern exactly.
+-->
+
+
+<!-- ── §1.3 · Homepage Story Teaser Images ────────────────────────────────────
+     Insert immediately after the existing "Editable Homepage Images" section. -->
+<div class="settings-section">
+  <h3>Homepage – Story Teaser Images</h3>
+  <p class="settings-hint">
+    These images appear in the "Our Story" teaser section on the <strong>homepage only</strong>.
+    Updating them does not affect the About page.
+  </p>
+
+  <div class="image-upload-row">
+    <label for="homeJarImageInput">Jar Image</label>
+    <input
+      type="file"
+      id="homeJarImageInput"
+      accept=".jpg,.jpeg,.png"
+      onchange="previewSiteImageUpload('homeJarImagePreview', this)"
+    />
+    <img id="homeJarImagePreview" class="img-preview hidden" alt="Preview" />
+    <div class="img-upload-actions">
+      <button onclick="uploadEditableSiteImage('home_jar_image', 'homeJarImageInput', 'homeJarImagePreview')">
+        Save
+      </button>
+      <button onclick="deleteEditableSiteImage('home_jar_image', 'homeJarImagePreview', 'homeJarImageInput')">
+        Remove uploaded image
+      </button>
+    </div>
+  </div>
+
+  <div class="image-upload-row">
+    <label for="homeProteinImageInput">Protein Shake Overlay</label>
+    <input
+      type="file"
+      id="homeProteinImageInput"
+      accept=".jpg,.jpeg,.png"
+      onchange="previewSiteImageUpload('homeProteinImagePreview', this)"
+    />
+    <img id="homeProteinImagePreview" class="img-preview hidden" alt="Preview" />
+    <div class="img-upload-actions">
+      <button onclick="uploadEditableSiteImage('home_protein_image', 'homeProteinImageInput', 'homeProteinImagePreview')">
+        Save
+      </button>
+      <button onclick="deleteEditableSiteImage('home_protein_image', 'homeProteinImagePreview', 'homeProteinImageInput')">
+        Remove uploaded image
+      </button>
+    </div>
+  </div>
+</div>
+
+
+<!-- ── §1.3 · Our Story Page – Why Choose Squirrel Nuts Images ───────────────
+     Insert immediately after the section above. -->
+<div class="settings-section">
+  <h3>Our Story Page – Why Choose Squirrel Nuts Images</h3>
+  <p class="settings-hint">
+    These images appear on the <strong>About / Our Story page</strong> only.
+    Updating them does not affect the homepage.
+  </p>
+
+  <div class="image-upload-row">
+    <label for="storyJarImageInput">Jar Image</label>
+    <input
+      type="file"
+      id="storyJarImageInput"
+      accept=".jpg,.jpeg,.png"
+      onchange="previewSiteImageUpload('storyJarImagePreview', this)"
+    />
+    <img id="storyJarImagePreview" class="img-preview hidden" alt="Preview" />
+    <div class="img-upload-actions">
+      <button onclick="uploadEditableSiteImage('story_jar_image', 'storyJarImageInput', 'storyJarImagePreview')">
+        Save
+      </button>
+      <button onclick="deleteEditableSiteImage('story_jar_image', 'storyJarImagePreview', 'storyJarImageInput')">
+        Remove uploaded image
+      </button>
+    </div>
+  </div>
+
+  <div class="image-upload-row">
+    <label for="storyProteinImageInput">Protein Shake Overlay</label>
+    <input
+      type="file"
+      id="storyProteinImageInput"
+      accept=".jpg,.jpeg,.png"
+      onchange="previewSiteImageUpload('storyProteinImagePreview', this)"
+    />
+    <img id="storyProteinImagePreview" class="img-preview hidden" alt="Preview" />
+    <div class="img-upload-actions">
+      <button onclick="uploadEditableSiteImage('story_protein_image', 'storyProteinImageInput', 'storyProteinImagePreview')">
+        Save
+      </button>
+      <button onclick="deleteEditableSiteImage('story_protein_image', 'storyProteinImagePreview', 'storyProteinImageInput')">
+        Remove uploaded image
+      </button>
+    </div>
+  </div>
+</div>
+
+
+<!-- ── §5.5 · Manage Categories ───────────────────────────────────────────────
+     Add this panel as a new section in settings.html (or a separate
+     categories.html — your choice). -->
+<div class="settings-section" id="manageCategoriesSection">
+  <h3>Manage Product Categories</h3>
+  <p class="settings-hint">
+    Add or deactivate categories here. New categories automatically get a homepage tile
+    image slot above. Deactivating a category with existing products is safe — those
+    products stay in the database, but the category won't appear in filters.
+  </p>
+
+  <!-- Add new category form -->
+  <div class="add-category-form">
+    <input type="text" id="newCategoryName" placeholder="Category name (e.g. Granola)" />
+    <input type="text" id="newCategorySlug" placeholder="Slug (auto-filled, e.g. granola)" />
+    <button onclick="adminAddCategory()">Add Category</button>
+  </div>
+
+  <!-- Existing categories list (populated by JS) -->
+  <ul id="categoriesList" class="categories-list">
+    <!-- Rendered by loadCategories() in script.js -->
+  </ul>
+</div>
